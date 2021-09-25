@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BookStore</title>
+    <link crossorigin="anonymous"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          rel="stylesheet">
+    <style>
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">BookStore</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/createBook">Add Book</a>
+                    <a class="nav-link" href="/accounting">Accounting</a>
+                    <a class="nav-link" href="/shoppingCart">Shopping Cart</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div><h3> Information </h3></div>
+    <br>
+    <div>
+        <ul>
+            <li th:text="'Title: ' + ${book.getTitle()}">Title: Book1</li>
+            <li th:text="'Author: ' + ${book.getAuthor()}">Author: Author1</li>
+            <li th:text="'Year: ' + ${book.getYear()}">Year: 2020</li>
+            <li th:text="'Price: ' + ${book.getPrice()}">Price: 10,00</li>
+            <li th:text="'Amount: ' + ${book.getAmount()}">Amount: 10</li>
+        </ul>
+    </div>
+
+
+</div>
+</body>
+</html>

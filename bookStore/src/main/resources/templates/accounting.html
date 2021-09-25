@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BookStore</title>
+    <link crossorigin="anonymous"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          rel="stylesheet">
+    <style>
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">BookStore</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/createBook">Add Book</a>
+                    <a class="nav-link active" aria-current="page" href="/accounting">Accounting</a>
+                    <a class="nav-link" href="/shoppingCart">Shopping Cart</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div><h3> Accounting </h3></div>
+    <div class="card" th:each="invoice: ${invoices}">
+        <div class="card-body">
+            <span th:text="${invoice.getInvoiceTotal()} + ' &euro;, Date: ' + ${invoice.getInvoiceDate()} + ' ' + ${invoice.getInvoiceDateTime()}">
+                Sum: 45.0 &euro;, Date: 26.08.2021 11:07
+            </span>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Book</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                    <th>Discount</th>
+                    <th>Position Sum</th>
+                </tr>
+                </thead>
+                <tbody th:remove="all-but-first">
+                <tr th:each="item: ${invoiceLineItemService.findItemsByInvoice(invoice)}">
+                <!--<tr th:each="item: ${invoiceLineItemService.findRecentItems()}">-->
+                    <td th:text="${item.getBookTitle()} + ' by ' + ${item.getBookAuthor()}">Book_1 by Author_1</td>
+                    <td th:text="${item.getBookPrice()} + ' &euro;'">10,00 &euro;</td>
+                    <td th:text="${item.getAmount()}">1</td>
+                    <td th:text="${item.getDiscount()}">0.0</td>
+                    <td th:text="${item.getSummedCosts()} + ' &euro;'">10,00 &euro;</td>
+                </tr>
+                <tr>
+                    <td >Book_2 by Author_1</td>
+                    <td >15,00 &euro;</td>
+                    <td >1</td>
+                    <td >0.0</td>
+                    <td >15,00 &euro;</td>
+                </tr>
+                <tr>
+                    <td >Book_3 by Author_1</td>
+                    <td >20,00 &euro;</td>
+                    <td >1</td>
+                    <td >0.0</td>
+                    <td >20,00 &euro;</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

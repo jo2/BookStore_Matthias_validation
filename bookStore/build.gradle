@@ -1,0 +1,58 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id "org.sonarqube" version "3.0"
+	id "jacoco"
+}
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "BookStore_Matthias"
+		property "sonar.host.url", "http://localhost:9000"
+		property "sonar.login", "6c5dca02a6ee73532f19a3118c2b62db5ea79a47"
+		property "sonar.jacoco.reportPath", "build/reports/jacoco/test/jacocoTestReport.xml"
+	}
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+	}
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: ['**/domain/**'])
+		}))
+	}
+}
+test.finalizedBy jacocoTestReport
+
+tasks.named('sonarqube').configure {
+	dependsOn test
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.projectlombok:lombok:1.18.20'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	runtimeOnly 'com.h2database:h2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	annotationProcessor 'org.projectlombok:lombok'
+}
+
+test {
+	useJUnitPlatform()
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>BookStore</title>
+    <link crossorigin="anonymous"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          rel="stylesheet">
+    <style>
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">BookStore</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/createBook">Add Book</a>
+                    <a class="nav-link" href="/accounting">Accounting</a>
+                    <a class="nav-link" href="/shoppingCart">Shopping Cart</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <form method="post" th:action="@{/updateBook/{id}(id = ${book.getId})}" th:object="${book}">
+        <div><h3>Edit <span th:value="*{title}">Book_1 </span></h3></div>
+        <div class="form-row">
+            <label> Title </label>
+            <input type="text" th:field="*{title}" class="form-control" >
+            <small class="text-danger" th:errors="*{title}"></small>
+        </div>
+        <div class="form-row">
+            <label> Author </label>
+            <input type="text" th:field="*{author}" class="form-control" >
+            <small class="text-danger" th:errors="*{author}"></small>
+        </div>
+        <div class="form-row">
+            <label> Year </label>
+            <input type="number" th:field="*{year}" class="form-control" >
+            <small class="text-danger" th:errors="*{year}"></small>
+        </div>
+        <div class="form-row">
+            <label> Price </label>
+            <input type="number" th:field="*{price}" step="0.01" class="form-control" >
+            <small class="text-danger" th:errors="*{price}"></small>
+        </div>
+        <div class="form-row">
+            <label> Amount </label>
+            <input type="number" th:field="*{amount}" class="form-control" >
+            <small class="text-danger" th:errors="*{amount}"></small>
+        </div>
+
+        <button class="btn btn-success" type="submit">Confirm</button>
+        <a class="btn btn-danger" role="button" href="/"> Cancel </a>
+    </form>
+
+</div>
+</body>
+</html>

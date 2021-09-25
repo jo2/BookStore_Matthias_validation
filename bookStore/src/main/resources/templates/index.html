@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BookStore</title>
+    <link crossorigin="anonymous"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          rel="stylesheet">
+    <style>
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">BookStore</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/createBook">Add Book</a>
+                    <a class="nav-link" href="/accounting">Accounting</a>
+                    <a class="nav-link" href="/shoppingCart">Shopping Cart</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div><h1> BookStore </h1></div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>Price</th>
+            <th>Amount</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody th:remove="all-but-first">
+        <tr th:each="book : ${books}">
+            <td><a th:href="@{/bookInfo/{id}(id = ${book.getId})}" th:text="${book.getTitle()}">
+                Book_1
+            </a>
+            </td>
+            <td th:text="${book.getAuthor()}">Author_1</td>
+            <td th:text="${book.getYear()}">2020</td>
+            <td th:text="${book.getPrice()}">10,00 &euro;</td>
+            <td th:text="${book.getAmount()}">10</td>
+            <td>
+                <div style="justify-content: flex-start; display: flex;">
+                    <a class="btn btn-light" role="button" th:href="@{/updateBook/{id}(id = ${book.getId})}"> Edit </a>
+                    <!--<a class="btn btn-primary" role="button" href="/"> Add to cart </a>-->
+                    <form method="post" th:action="@{/shoppingCart/{id}(id = ${book.getId})}" >
+                        <button class="btn btn-info" type="submit">Add to cart</button>
+                    </form>
+                    <form method="post" th:action="@{/deleteBook/{id}(id = ${book.getId})}">
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td >Book_2</td>
+            <td >Author_1</td>
+            <td >2021</td>
+            <td >15,00 &euro;</td>
+            <td >12</td>
+            <td>
+                <a class="btn btn-primary" role="button" href="/"> Edit </a>
+                <a class="btn btn-primary" role="button" href="/"> Add to cart </a>
+                <a class="btn btn-danger" role="button" href="/"> Delete </a>
+            </td>
+        </tr>
+        <tr>
+            <td >Book_3</td>
+            <td >Author_1</td>
+            <td >2018</td>
+            <td >20,00 &euro;</td>
+            <td >14</td>
+            <td>
+                <a class="btn btn-primary" type="submit" role="button" href="/"> Edit </a>
+                <a class="btn btn-primary" role="button" href="/"> Add to cart </a>
+                <a class="btn btn-danger" role="button" href="/"> Delete </a>
+            </td>
+        </tr>
+        <tr>
+            <td >Book_4</td>
+            <td >Author_1</td>
+            <td >2018</td>
+            <td >25,00 &euro;</td>
+            <td >15</td>
+            <td>
+                <a class="btn btn-primary" role="button" href="/"> Edit </a>
+                <a class="btn btn-primary" role="button" href="/"> Add to cart </a>
+                <a class="btn btn-danger" role="button" href="/"> Delete </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
